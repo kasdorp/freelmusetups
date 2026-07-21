@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<LDXFile Locale="Hungarian_Hungary.1250" DefaultLocale="C" Version="1.6">
+ <Layers>
+  <Details>
+   <String Id="Total Laps" Value="4"/>
+   <String Id="Fastest Time" Value="2:17.365"/>
+   <String Id="Fastest Lap" Value="2"/>
+  </Details>
+ </Layers>
+</LDXFile>
