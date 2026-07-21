@@ -1,6 +1,11 @@
 """All bot handlers: /start language pick, menu navigation, file delivery."""
 from __future__ import annotations
 
+import os
+import subprocess
+import sys
+from html import escape as html_escape
+
 from aiogram import F, Router
 from aiogram.filters import Command, CommandStart
 from aiogram.types import (CallbackQuery, FSInputFile, InlineKeyboardButton,
@@ -8,7 +13,7 @@ from aiogram.types import (CallbackQuery, FSInputFile, InlineKeyboardButton,
 
 import storage
 from catalog import car_name, track_name
-from config import ADMIN_IDS
+from config import ADMIN_IDS, BASE_DIR
 from i18n import t
 from keyboards import (kb_authors, kb_cars, kb_classes, kb_files, kb_language,
                        kb_main, kb_tracks, nav_row, resolve)
@@ -222,6 +227,31 @@ async def cmd_reload(message: Message) -> None:
         return
     snap = get_snapshot(force=True)
     await message.answer(f"♻️ Library reloaded: {len(snap.setups)} setups.")
+
+
+@router.message(Command("update"))
+async def cmd_update(message: Message) -> None:
+    """git pull the deployment this process is running on, then restart into
+    the freshly pulled code. Meant for the server deployment — lets you push
+    code/setups from your PC and roll it out to the server via one Telegram
+    command instead of RDP-ing in."""
+    if message.from_user.id not in ADMIN_IDS:
+        return
+    await message.answer("🔄 Running git pull...")
+    result = subprocess.run(
+        ["git", "pull", "--ff-only"],
+        cwd=BASE_DIR, capture_output=True, text=True,
+    )
+    output = (result.stdout + result.stderr).strip()
+    if result.returncode != 0:
+        await message.answer(f"❌ git pull failed:\n<code>{html_escape(output[:1500])}</code>")
+        return
+    if "up to date" in output.lower():
+        await message.answer(f"✅ Already up to date.\n<code>{html_escape(output[:500])}</code>")
+        return
+    await message.answer(f"📥 Updated:\n<code>{html_escape(output[:1500])}</code>\n\n♻️ Restarting...")
+    await message.bot.session.close()
+    os.execv(sys.executable, [sys.executable] + sys.argv)
 
 
 @router.message(Command("setversion"))
