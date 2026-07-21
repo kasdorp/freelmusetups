@@ -13,7 +13,7 @@ from aiogram.types import (CallbackQuery, FSInputFile, InlineKeyboardButton,
 
 import storage
 from catalog import car_name, track_name
-from config import ADMIN_IDS, BASE_DIR
+from config import BASE_DIR
 from i18n import t
 from keyboards import (kb_authors, kb_cars, kb_classes, kb_files, kb_language,
                        kb_main, kb_tracks, nav_row, resolve)
@@ -223,7 +223,7 @@ async def cmd_id(message: Message) -> None:
 
 @router.message(Command("reload"))
 async def cmd_reload(message: Message) -> None:
-    if message.from_user.id not in ADMIN_IDS:
+    if not storage.is_admin(message.from_user.id):
         return
     snap = get_snapshot(force=True)
     await message.answer(f"♻️ Library reloaded: {len(snap.setups)} setups.")
@@ -235,7 +235,7 @@ async def cmd_update(message: Message) -> None:
     the freshly pulled code. Meant for the server deployment — lets you push
     code/setups from your PC and roll it out to the server via one Telegram
     command instead of RDP-ing in."""
-    if message.from_user.id not in ADMIN_IDS:
+    if not storage.is_admin(message.from_user.id):
         return
     await message.answer("🔄 Running git pull...")
     result = subprocess.run(
@@ -256,7 +256,7 @@ async def cmd_update(message: Message) -> None:
 
 @router.message(Command("setversion"))
 async def cmd_setversion(message: Message) -> None:
-    if message.from_user.id not in ADMIN_IDS:
+    if not storage.is_admin(message.from_user.id):
         return
     parts = (message.text or "").split(maxsplit=1)
     if len(parts) < 2:
@@ -270,9 +270,53 @@ async def cmd_setversion(message: Message) -> None:
     await message.answer(f"✅ Game version set: <b>{parts[1].strip()}</b>")
 
 
+@router.message(Command("admins"))
+async def cmd_admins(message: Message) -> None:
+    if not storage.is_admin(message.from_user.id):
+        return
+    ids = sorted(storage.get_admin_ids())
+    await message.answer(
+        "👑 Admins:\n" + "\n".join(f"  <code>{i}</code>" for i in ids)
+        + "\n\nAdd: <code>/addadmin 123456789</code>\nRemove: <code>/removeadmin 123456789</code>"
+    )
+
+
+@router.message(Command("addadmin"))
+async def cmd_addadmin(message: Message) -> None:
+    if not storage.is_admin(message.from_user.id):
+        return
+    parts = (message.text or "").split(maxsplit=1)
+    if len(parts) < 2 or not parts[1].strip().isdigit():
+        await message.answer("Usage: <code>/addadmin 123456789</code> (the user's Telegram ID, e.g. from /id)")
+        return
+    new_id = int(parts[1].strip())
+    if storage.add_admin(new_id):
+        await message.answer(f"✅ <code>{new_id}</code> is now an admin.")
+    else:
+        await message.answer(f"ℹ️ <code>{new_id}</code> was already an admin.")
+
+
+@router.message(Command("removeadmin"))
+async def cmd_removeadmin(message: Message) -> None:
+    if not storage.is_admin(message.from_user.id):
+        return
+    parts = (message.text or "").split(maxsplit=1)
+    if len(parts) < 2 or not parts[1].strip().isdigit():
+        await message.answer("Usage: <code>/removeadmin 123456789</code>")
+        return
+    old_id = int(parts[1].strip())
+    if storage.remove_admin(old_id):
+        await message.answer(f"✅ <code>{old_id}</code> is no longer an admin.")
+    else:
+        await message.answer(
+            f"⚠️ <code>{old_id}</code> isn't a removable admin — either not an admin, "
+            f"or set via ADMIN_IDS in .env (edit .env directly to change those)."
+        )
+
+
 @router.message(Command("stats"))
 async def cmd_stats(message: Message) -> None:
-    if message.from_user.id not in ADMIN_IDS:
+    if not storage.is_admin(message.from_user.id):
         return
     snap = get_snapshot()
     total, top = storage.stats_summary()

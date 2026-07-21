@@ -1,0 +1,16 @@
+[Unit]
+Description=LMU Setup Bot (Telegram)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+# Edit these two paths to match where you cloned the repo and which user runs it
+User=freelmusetups
+WorkingDirectory=/opt/freelmusetups
+ExecStart=/opt/freelmusetups/.venv/bin/python bot.py
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

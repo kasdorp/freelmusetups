@@ -5,12 +5,13 @@ import json
 import threading
 from typing import Any
 
-from config import DATA_DIR
+from config import ADMIN_IDS, DATA_DIR
 
 _lock = threading.Lock()
 _USERS_FILE = DATA_DIR / "users.json"
 _STATS_FILE = DATA_DIR / "stats.json"
 _SETTINGS_FILE = DATA_DIR / "settings.json"
+_ADMINS_FILE = DATA_DIR / "admins.json"
 
 
 def _load(path) -> dict[str, Any]:
@@ -32,6 +33,7 @@ def _save(path, data: dict) -> None:
 _users: dict[str, Any] = _load(_USERS_FILE)
 _stats: dict[str, Any] = _load(_STATS_FILE)
 _settings: dict[str, Any] = _load(_SETTINGS_FILE)
+_admins: dict[str, Any] = _load(_ADMINS_FILE)
 
 if "downloads" in _stats and "by_setup" not in _stats:
     # Migrate from the old per-exact-filename scheme: every setup version bump
@@ -52,6 +54,44 @@ def set_game_version(version: str) -> None:
     with _lock:
         _settings["game_version"] = version.strip()
         _save(_SETTINGS_FILE, _settings)
+
+
+def get_admin_ids() -> set[int]:
+    """ADMIN_IDS from .env (the fixed bootstrap set, always kept — this is what
+    protects against ever locking yourself out) plus admins added at runtime
+    via the bot's /addadmin command (persisted, so they survive restarts and
+    are independent per-deployment)."""
+    return ADMIN_IDS | {int(x) for x in _admins.get("extra_ids", [])}
+
+
+def is_admin(user_id: int) -> bool:
+    return user_id in get_admin_ids()
+
+
+def add_admin(user_id: int) -> bool:
+    """Returns False if user_id was already an admin (env or extra)."""
+    if user_id in get_admin_ids():
+        return False
+    with _lock:
+        ids = set(_admins.get("extra_ids", []))
+        ids.add(user_id)
+        _admins["extra_ids"] = sorted(ids)
+        _save(_ADMINS_FILE, _admins)
+    return True
+
+
+def remove_admin(user_id: int) -> bool:
+    """Only removes runtime-added admins — .env ADMIN_IDS can't be revoked
+    from the bot itself, only by editing .env, so you can never lock yourself
+    out entirely. Returns False if user_id wasn't a runtime admin."""
+    with _lock:
+        ids = set(_admins.get("extra_ids", []))
+        if user_id not in ids:
+            return False
+        ids.discard(user_id)
+        _admins["extra_ids"] = sorted(ids)
+        _save(_ADMINS_FILE, _admins)
+    return True
 
 
 def get_lang(user_id: int) -> str | None:
