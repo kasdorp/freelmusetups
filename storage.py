@@ -2,10 +2,13 @@
 from __future__ import annotations
 
 import json
+import logging
 import threading
 from typing import Any
 
 from config import ADMIN_IDS, DATA_DIR
+
+log = logging.getLogger(__name__)
 
 _lock = threading.Lock()
 _USERS_FILE = DATA_DIR / "users.json"
@@ -23,11 +26,20 @@ def _load(path) -> dict[str, Any]:
 
 
 def _save(path, data: dict) -> None:
-    DATA_DIR.mkdir(parents=True, exist_ok=True)
-    tmp = path.with_suffix(".tmp")
-    with tmp.open("w", encoding="utf-8") as f:
-        json.dump(data, f, ensure_ascii=False, indent=1)
-    tmp.replace(path)
+    # Persistence failures (e.g. bad file/folder permissions on a given
+    # deployment) shouldn't crash the handler that triggered them — that
+    # leaves a Telegram callback unanswered, which the client shows as an
+    # infinite loading spinner. Log loudly instead so the real problem (disk,
+    # not the bot) is visible in the server's logs, and keep serving requests
+    # from the in-memory copy.
+    try:
+        DATA_DIR.mkdir(parents=True, exist_ok=True)
+        tmp = path.with_suffix(".tmp")
+        with tmp.open("w", encoding="utf-8") as f:
+            json.dump(data, f, ensure_ascii=False, indent=1)
+        tmp.replace(path)
+    except OSError:
+        log.exception("Failed to save %s — check file/folder permissions", path)
 
 
 _users: dict[str, Any] = _load(_USERS_FILE)
