@@ -15,6 +15,7 @@ _USERS_FILE = DATA_DIR / "users.json"
 _STATS_FILE = DATA_DIR / "stats.json"
 _SETTINGS_FILE = DATA_DIR / "settings.json"
 _ADMINS_FILE = DATA_DIR / "admins.json"
+_ANNOUNCED_FILE = DATA_DIR / "announced.json"
 
 
 def _load(path) -> dict[str, Any]:
@@ -46,6 +47,7 @@ _users: dict[str, Any] = _load(_USERS_FILE)
 _stats: dict[str, Any] = _load(_STATS_FILE)
 _settings: dict[str, Any] = _load(_SETTINGS_FILE)
 _admins: dict[str, Any] = _load(_ADMINS_FILE)
+_announced: dict[str, Any] = _load(_ANNOUNCED_FILE)
 
 if "downloads" in _stats and "by_setup" not in _stats:
     # Migrate from the old per-exact-filename scheme: every setup version bump
@@ -104,6 +106,26 @@ def remove_admin(user_id: int) -> bool:
         _admins["extra_ids"] = sorted(ids)
         _save(_ADMINS_FILE, _admins)
     return True
+
+
+def has_announced_baseline() -> bool:
+    return _ANNOUNCED_FILE.exists()
+
+
+def get_announced_ids() -> set[str]:
+    return set(_announced.get("ids", []))
+
+
+def mark_announced(ids: set[str]) -> None:
+    with _lock:
+        current = set(_announced.get("ids", []))
+        current |= ids
+        _announced["ids"] = sorted(current)
+        _save(_ANNOUNCED_FILE, _announced)
+
+
+def get_all_user_ids() -> list[int]:
+    return [int(uid) for uid in _users]
 
 
 def get_lang(user_id: int) -> str | None:

@@ -1,6 +1,7 @@
 """All bot handlers: /start language pick, menu navigation, file delivery."""
 from __future__ import annotations
 
+import asyncio
 import os
 import subprocess
 import sys
@@ -227,6 +228,57 @@ async def cmd_reload(message: Message) -> None:
         return
     snap = get_snapshot(force=True)
     await message.answer(f"♻️ Library reloaded: {len(snap.setups)} setups.")
+
+
+@router.message(Command("newsetups"))
+async def cmd_newsetups(message: Message) -> None:
+    """Broadcast to every user who has ever /start-ed the bot about setups
+    added since the last time this command ran. First run just records the
+    current library as the baseline (no broadcast) — otherwise the very first
+    call would blast the entire existing library at everyone."""
+    if not storage.is_admin(message.from_user.id):
+        return
+    snap = get_snapshot(force=True)
+    current_ids = {s.id: s for s in snap.setups}
+
+    if not storage.has_announced_baseline():
+        storage.mark_announced(set(current_ids))
+        await message.answer(
+            f"ℹ️ First run — baseline set with the current {len(current_ids)} setups. "
+            f"Nothing was announced. Next time, only what's new since now will be sent."
+        )
+        return
+
+    new_ids = set(current_ids) - storage.get_announced_ids()
+    if not new_ids:
+        await message.answer("ℹ️ No new setups since the last announcement.")
+        return
+
+    new_setups = [current_ids[i] for i in new_ids]
+    combos = sorted({(s.car_name, track_name(s.track), s.author) for s in new_setups})
+    max_lines = 40
+    lines = [f"🏎 {car} @ {track} ({author})" for car, track, author in combos[:max_lines]]
+    extra = len(combos) - max_lines
+
+    sent = failed = 0
+    for uid in storage.get_all_user_ids():
+        lang = storage.get_lang(uid) or "en"
+        body = "\n".join(lines)
+        if extra > 0:
+            body += "\n" + t(lang, "newsetups_more", n=extra)
+        text = t(lang, "newsetups_header") + "\n\n" + body + t(lang, "newsetups_footer")
+        try:
+            await message.bot.send_message(uid, text)
+            sent += 1
+        except Exception:
+            failed += 1
+        await asyncio.sleep(0.05)
+
+    storage.mark_announced(new_ids)
+    await message.answer(
+        f"✅ Announced {len(combos)} new setup(s) ({len(new_setups)} files) to {sent} users "
+        f"({failed} failed/blocked the bot)."
+    )
 
 
 @router.message(Command("update"))
