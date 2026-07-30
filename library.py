@@ -23,13 +23,16 @@ from config import LIBRARY_CACHE_TTL, SETUPS_DIR
 _VEH_RE = re.compile(r"Installed[\\/]+Vehicles[\\/]+([^\\/\r\n]+)", re.IGNORECASE)
 _CLASS_RE = re.compile(r'VehicleClassSetting\s*=\s*"([^"]*)"', re.IGNORECASE)
 
-# Session-code token: an optional single condition letter (Cold/Endurance/Wet/Hot/...)
-# followed by Q or R and optional digits, standing alone as a whole token — e.g.
-# "Q", "R01", "EQ", "ER", "CQ", "CR", "WQ", "WR", "QUALI". Catches any condition
-# prefix instead of a fixed list, so new abbreviations don't need a code change.
+# Session-code token: an optional condition prefix, then Q or R, then optional
+# digits, standing alone as a whole token — e.g. "Q", "R01", "EQ", "ER", "CQ",
+# "WR", but also word-style prefixes like "SafeQ", "WetR". The prefix must be
+# a single uppercase letter optionally followed by lowercase ones (Title-Case
+# word shape: "C", "W", "Safe", "Wet"...) — deliberately case-sensitive, so
+# ALL-CAPS car/track abbreviations that happen to end in Q/R ("HUR", "RCF",
+# "BAR") don't get mistaken for session codes, since their letters after the
+# first are uppercase rather than lowercase.
 _SESSION_RE = re.compile(
-    r"(?:^|[\s_\-.])[A-Za-z]?(?P<code>Q(?:UALI\w*)?|R(?:ACE)?)\d*(?=$|[\s_\-.])",
-    re.IGNORECASE,
+    r"(?:^|[\s_\-.])(?:[A-Z][a-z]*)?(?P<code>[QR])\d*(?=$|[\s_\-.])"
 )
 
 
