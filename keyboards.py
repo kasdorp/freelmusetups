@@ -50,6 +50,7 @@ def kb_language() -> InlineKeyboardMarkup:
 def kb_main(lang: str) -> InlineKeyboardMarkup:
     b = InlineKeyboardBuilder()
     b.row(InlineKeyboardButton(text=t(lang, "btn_get"), callback_data="get"))
+    b.row(InlineKeyboardButton(text=t(lang, "btn_schedule"), callback_data="schedule"))
     b.row(
         InlineKeyboardButton(text=t(lang, "btn_help"), callback_data="help"),
         InlineKeyboardButton(text=t(lang, "btn_about"), callback_data="about"),

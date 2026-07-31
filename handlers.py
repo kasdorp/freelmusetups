@@ -19,6 +19,7 @@ from i18n import t
 from keyboards import (kb_authors, kb_cars, kb_classes, kb_files, kb_language,
                        kb_main, kb_tracks, nav_row, resolve)
 from library import get_snapshot
+from schedule import format_schedule, get_schedule
 
 router = Router()
 
@@ -112,6 +113,18 @@ async def cb_about(cb: CallbackQuery) -> None:
         t(lang, "about", version_line=version_line(lang), **library_counts()),
         reply_markup=kb,
     )
+    await cb.answer()
+
+
+@router.callback_query(F.data == "schedule")
+async def cb_schedule(cb: CallbackQuery) -> None:
+    lang = user_lang(cb.from_user.id) or "en"
+    kb = InlineKeyboardMarkup(inline_keyboard=[nav_row(lang, None)])
+    body = await get_schedule()
+    if body is None:
+        await cb.message.edit_text(t(lang, "schedule_unavailable"), reply_markup=kb)
+    else:
+        await cb.message.edit_text(format_schedule(body, lang), reply_markup=kb)
     await cb.answer()
 
 
