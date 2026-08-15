@@ -16,9 +16,9 @@ CGHeightSetting=0//Non-adjustable
 CGRightSetting=0//Non-adjustable
 CGRearSetting=0//Non-adjustable
 WedgeSetting=0//N/A
-FuelSetting=97//0.98
-FuelCapacitySetting=0//16.7L (7.5 laps)
-VirtualEnergySetting=17//17% (7.1 laps)
+FuelSetting=93//0.94
+FuelCapacitySetting=0//94.0L (43.9 laps)
+VirtualEnergySetting=100//100% (45.5 laps)
 NumPitstopsSetting=0//0
 Pitstop1Setting=60//N/A
 Pitstop2Setting=60//N/A
@@ -86,15 +86,15 @@ ChassisAdj11Setting=0//N/A
 
 [CONTROLS]
 SteerLockSetting=6//514 (20.8) deg
-RearBrakeSetting=36//48.0:52.0
+RearBrakeSetting=26//50.5:49.5
 BrakeMigrationSetting=0// 0.0
 BrakePressureSetting=75//115 kgf (96%)
 HandfrontbrakePressSetting=0//N/A
 HandbrakePressSetting=0//N/A
 TCSetting=0//Available
 ABSSetting=0//Available
-TractionControlMapSetting=5//5
-TCPowerCutMapSetting=5//5
+TractionControlMapSetting=6//6
+TCPowerCutMapSetting=6//6
 TCSlipAngleMapSetting=6//6
 AntilockBrakeSystemMapSetting=9//9 (Understeer)
 
