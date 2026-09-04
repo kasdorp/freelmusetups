@@ -1,24 +1,23 @@
 VehicleClassSetting="ELMS2025 LMP3 Ligier_JS_P325"
-UpgradeSetting=(120320,0,0,0)
-//VEH=D:\SteamLibrary\steamapps\common\Le Mans Ultimate\Installed\Vehicles\Ligier_JSP325_2025\1.09\397_25_JSP325.VEH
+UpgradeSetting=(60160,0,0,0)
+//VEH=D:\SteamLibrary\steamapps\common\Le Mans Ultimate\Installed\Vehicles\Ligier_JSP325_2025\1.07\397_25_JSP325.VEH
 //UpgradeClass=
 //Aero Package=0
 //Front Bumpstop=0
 //Rear Bumpstop=0
 //Gearing=0
-//Pitstop Times=0
 //Estimates=22
 //Atmos Conditions=14
 //Note: settings commented out if using the default
 
 [GENERAL]
-Notes="1.4"
+Notes=""
 Symmetric=1
 CGHeightSetting=0//Non-adjustable
 CGRightSetting=0//Non-adjustable
 CGRearSetting=0//Non-adjustable
 WedgeSetting=0//N/A
-FuelSetting=95//100.0L (42.2 laps)
+FuelSetting=95//100.0L (40.6 laps)
 FuelCapacitySetting=0//N/A
 NumPitstopsSetting=0//0
 Pitstop1Setting=50//N/A
@@ -35,7 +34,7 @@ FenderFlareSetting=0//HDF
 FWSetting=0//Standard
 
 [REARWING]
-RWSetting=8//6.5 deg
+RWSetting=10//7.5 deg
 
 [BODYAERO]
 WaterRadiatorSetting=1//25%
@@ -48,7 +47,7 @@ FrontWheelTrackSetting=0//Non-adjustable
 RearWheelTrackSetting=0//Non-adjustable
 FrontAntiSwaySetting=0//13mm Soft (564)
 RearAntiSwaySetting=0//13mm Soft (299)
-FrontToeInSetting=7//-0.18 deg
+FrontToeInSetting=8//-0.00 deg
 FrontToeOffsetSetting=0//N/A
 RearToeInSetting=10//0.32 deg
 RearToeOffsetSetting=0//N/A
@@ -87,16 +86,16 @@ ChassisAdj11Setting=0//1
 
 [CONTROLS]
 SteerLockSetting=5//440  (16.9) deg
-RearBrakeSetting=25//52.5:47.5
+RearBrakeSetting=31//49.5:50.5
 BrakeMigrationSetting=0// 0.0
-BrakePressureSetting=20//80 kgf (100%)
+BrakePressureSetting=18//76 kgf (95%)
 HandfrontbrakePressSetting=0// 
 HandbrakePressSetting=0//0%
 TCSetting=0//Available
 ABSSetting=0//N/A
-TractionControlMapSetting=7//7
+TractionControlMapSetting=6//6
 TCPowerCutMapSetting=6//6
-TCSlipAngleMapSetting=7//Linked
+TCSlipAngleMapSetting=6//Linked
 AntilockBrakeSystemMapSetting=0//N/A
 
 [ENGINE]
@@ -119,8 +118,8 @@ Gear6Setting=0//Fixed
 RatioSetSetting=0//Standard
 DiffPumpSetting=0//N/A
 DiffPowerSetting=1//4F/30 deg (44.2%)
-DiffCoastSetting=0//4F/60 deg (23.5%)
-DiffPreloadSetting=0//48.0 Nm
+DiffCoastSetting=1//4F/30 deg (41.8%)
+DiffPreloadSetting=2//69.0 Nm
 FrontDiffPumpSetting=0//0%
 FrontDiffPowerSetting=0//0%
 FrontDiffCoastSetting=0//0%
@@ -130,69 +129,69 @@ GearAutoUpShiftSetting=0//Off
 GearAutoDownShiftSetting=0//Off
 
 [FRONTLEFT]
-CamberSetting=19//-2.1 deg
+CamberSetting=18//-2.2 deg
 PressureSetting=0//150 kPa
 PackerSetting=0//5.0 mm
-SpringSetting=8//1100 lbf/in
+SpringSetting=10//1200 lbf/in
 TenderSpringSetting=0//Detached
 TenderTravelSetting=0//Detached
 SpringRubberSetting=0//Detached
-RideHeightSetting=4//42.0 mm
-SlowBumpSetting=9//10
-FastBumpSetting=1//2
-SlowReboundSetting=17//18
-FastReboundSetting=2//3
+RideHeightSetting=16//48.0 mm
+SlowBumpSetting=27//28
+FastBumpSetting=14//15
+SlowReboundSetting=19//20
+FastReboundSetting=14//15
 BrakeDiscSetting=0//3.20 cm
 BrakePadSetting=0//1
 CompoundSetting=1//Wet
 
 [FRONTRIGHT]
-CamberSetting=19//-2.1 deg
+CamberSetting=18//-2.2 deg
 PressureSetting=0//150 kPa
 PackerSetting=0//5.0 mm
-SpringSetting=8//1100 lbf/in
+SpringSetting=10//1200 lbf/in
 TenderSpringSetting=0//Detached
 TenderTravelSetting=0//Detached
 SpringRubberSetting=0//Detached
-RideHeightSetting=4//42.0 mm
-SlowBumpSetting=9//10
-FastBumpSetting=1//2
-SlowReboundSetting=17//18
-FastReboundSetting=2//3
+RideHeightSetting=16//48.0 mm
+SlowBumpSetting=27//28
+FastBumpSetting=14//15
+SlowReboundSetting=19//20
+FastReboundSetting=14//15
 BrakeDiscSetting=0//3.20 cm
 BrakePadSetting=0//1
 CompoundSetting=1//Wet
 
 [REARLEFT]
-CamberSetting=22//-1.8 deg
+CamberSetting=24//-1.6 deg
 PressureSetting=0//130 kPa
 PackerSetting=0//7.5 mm
 SpringSetting=0//700 lbf/in
 TenderSpringSetting=0//Detached
 TenderTravelSetting=0//Detached
 SpringRubberSetting=0//Detached
-RideHeightSetting=27//63.5 mm
-SlowBumpSetting=9//10
-FastBumpSetting=2//3
+RideHeightSetting=30//65.0 mm
+SlowBumpSetting=7//8
+FastBumpSetting=4//5
 SlowReboundSetting=7//8
-FastReboundSetting=1//2
+FastReboundSetting=4//5
 BrakeDiscSetting=0//3.20 cm
 BrakePadSetting=0//1
 CompoundSetting=1//Wet
 
 [REARRIGHT]
-CamberSetting=22//-1.8 deg
+CamberSetting=24//-1.6 deg
 PressureSetting=0//130 kPa
 PackerSetting=0//7.5 mm
 SpringSetting=0//700 lbf/in
 TenderSpringSetting=0//Detached
 TenderTravelSetting=0//Detached
 SpringRubberSetting=0//Detached
-RideHeightSetting=27//63.5 mm
-SlowBumpSetting=9//10
-FastBumpSetting=2//3
+RideHeightSetting=30//65.0 mm
+SlowBumpSetting=7//8
+FastBumpSetting=4//5
 SlowReboundSetting=7//8
-FastReboundSetting=1//2
+FastReboundSetting=4//5
 BrakeDiscSetting=0//3.20 cm
 BrakePadSetting=0//1
 CompoundSetting=1//Wet
