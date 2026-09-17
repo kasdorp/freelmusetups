@@ -19,7 +19,7 @@ CGHeightSetting=0//Non-adjustable
 CGRightSetting=0//Non-adjustable
 CGRearSetting=0//Non-adjustable
 WedgeSetting=0//N/A
-FuelSetting=70//75.0L (25.4 laps)
+FuelSetting=70//75.0L (25.5 laps)
 FuelCapacitySetting=0//N/A
 NumPitstopsSetting=0//0
 Pitstop1Setting=50//N/A
@@ -133,7 +133,7 @@ GearAutoDownShiftSetting=0//Off
 [FRONTLEFT]
 CamberSetting=11//-1.5 deg
 PressureSetting=0//136 kPa
-PackerSetting=0//0.0 cm
+PackerSetting=10//1.0 cm
 SpringSetting=2//280 N/mm
 TenderSpringSetting=0//Detached
 TenderTravelSetting=0//Detached
@@ -150,7 +150,7 @@ CompoundSetting=0//Medium
 [FRONTRIGHT]
 CamberSetting=11//-1.5 deg
 PressureSetting=0//136 kPa
-PackerSetting=0//0.0 cm
+PackerSetting=10//1.0 cm
 SpringSetting=2//280 N/mm
 TenderSpringSetting=0//Detached
 TenderTravelSetting=0//Detached

@@ -1,15 +1,17 @@
 VehicleClassSetting="ELMS2025 LMP2_ELMS Oreca_07"
-UpgradeSetting=(399556,0,0,0)
-//VEH=C:\Program Files (x86)\Steam\steamapps\common\Le Mans Ultimate\Installed\Vehicles\Oreca_07_ELMS_2023\1.59\3_25_DKR_EA051AD3A.VEH
+UpgradeSetting=(2672196,0,0,0)
+//VEH=D:\Steam\steamapps\common\Le Mans Ultimate\Installed\Vehicles\Oreca_07_ELMS_2023\1.57\3_25_DKR_EA051AD3A.VEH
 //UpgradeClass=
 //Aero Package=0
-//Dive planes=2
+//Fuel tank=0
+//Dive planes=1
 //Engine cover gurney=0
-//Rear wing gurney=0
-//AI Tweaks=3
-//Estimates=3
+//Rear wing gurney=1
+//Diffuser strakes=0
+//AI Tweaks=6
+//Estimates=6
 //Visor Mod=0
-//Atmos Conditions=3
+//Atmos Conditions=5
 //Note: settings commented out if using the default
 
 [GENERAL]
@@ -19,7 +21,7 @@ CGHeightSetting=0//Non-adjustable
 CGRightSetting=0//Non-adjustable
 CGRearSetting=0//Non-adjustable
 WedgeSetting=0//N/A
-FuelSetting=52//57.0L (16.4 laps)
+FuelSetting=52//57.0L (20.0 laps)
 FuelCapacitySetting=0//N/A
 NumPitstopsSetting=0//0
 Pitstop1Setting=50//N/A
@@ -27,10 +29,10 @@ Pitstop2Setting=50//N/A
 Pitstop3Setting=50//N/A
 
 [LEFTFENDER]
-FenderFlareSetting=0//Upper + Lower
+FenderFlareSetting=0//Lower
 
 [RIGHTFENDER]
-FenderFlareSetting=0//Upper + Lower
+FenderFlareSetting=0//Lower
 
 [FRONTWING]
 FWSetting=0//Sprint
@@ -49,7 +51,7 @@ FrontWheelTrackSetting=0//Non-adjustable
 RearWheelTrackSetting=0//Non-adjustable
 FrontAntiSwaySetting=1//D18 S-S
 RearAntiSwaySetting=0//Detached
-FrontToeInSetting=13//-0.18 deg
+FrontToeInSetting=14//-0.12 deg
 FrontToeOffsetSetting=0//N/A
 RearToeInSetting=18//0.12 deg
 RearToeOffsetSetting=0//N/A
@@ -90,7 +92,7 @@ ChassisAdj11Setting=0//N/A
 SteerLockSetting=3//336 (13) deg
 RearBrakeSetting=13//54.1:45.9
 BrakeMigrationSetting=0// 0.0
-BrakePressureSetting=58//98 kgf (82%)
+BrakePressureSetting=56//96 kgf (80%)
 HandfrontbrakePressSetting=0//0%
 HandbrakePressSetting=0//N/A
 TCSetting=0//Available

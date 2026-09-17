@@ -133,7 +133,7 @@ GearAutoDownShiftSetting=0//Off
 [FRONTLEFT]
 CamberSetting=11//-1.5 deg
 PressureSetting=0//136 kPa
-PackerSetting=0//0.0 cm
+PackerSetting=10//1.0 cm
 SpringSetting=2//280 N/mm
 TenderSpringSetting=0//Detached
 TenderTravelSetting=0//Detached
@@ -150,7 +150,7 @@ CompoundSetting=0//Medium
 [FRONTRIGHT]
 CamberSetting=11//-1.5 deg
 PressureSetting=0//136 kPa
-PackerSetting=0//0.0 cm
+PackerSetting=10//1.0 cm
 SpringSetting=2//280 N/mm
 TenderSpringSetting=0//Detached
 TenderTravelSetting=0//Detached

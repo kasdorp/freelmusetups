@@ -1,0 +1,206 @@
+VehicleClassSetting="GT3 McLaren_720S_LMGT3_Evo WEC2026"
+UpgradeSetting=(1211358,0,0,0)
+//VEH=C:\Program Files (x86)\Steam\steamapps\common\Le Mans Ultimate\Installed\Vehicles\McLaren_720sGT3Evo_2023\1.25\397_26_MCLAREN.VEH
+//UpgradeClass=
+//Position lights=0
+//BOP=15
+//AI Tweaks=15
+//Estimates=15
+//Gear ratios=0
+//Atmos Conditions=9
+//Note: settings commented out if using the default
+
+[GENERAL]
+Notes=""
+Symmetric=1
+CGHeightSetting=0//Non-adjustable
+CGRightSetting=0//Non-adjustable
+CGRearSetting=0//Non-adjustable
+WedgeSetting=0//N/A
+FuelSetting=15//0.16
+FuelCapacitySetting=0//16.0l (5.2 Runden)
+VirtualEnergySetting=100//100% (26.5 Runden)
+NumPitstopsSetting=0//0
+Pitstop1Setting=60//N/V
+Pitstop2Setting=60//N/V
+Pitstop3Setting=60//N/V
+
+[LEFTFENDER]
+FenderFlareSetting=0//Upper
+
+[RIGHTFENDER]
+FenderFlareSetting=0//Upper
+
+[FRONTWING]
+FWSetting=0//Standard
+
+[REARWING]
+RWSetting=23//8.8 Grad
+
+[BODYAERO]
+WaterRadiatorSetting=10//Closed
+OilRadiatorSetting=10//Closed
+BrakeDuctSetting=2//20%
+BrakeDuctRearSetting=3//30%
+
+[SUSPENSION]
+FrontWheelTrackSetting=0//Non-adjustable
+RearWheelTrackSetting=0//Non-adjustable
+FrontAntiSwaySetting=1//P1 14mm
+RearAntiSwaySetting=1//P1 18x2mm
+FrontToeInSetting=8//0 Grad
+FrontToeOffsetSetting=0//N/V
+RearToeInSetting=9//0.117 Grad
+RearToeOffsetSetting=0//N/V
+LeftCasterSetting=0//Non-adjustable
+RightCasterSetting=0//Non-adjustable
+LeftTrackBarSetting=0//N/V
+RightTrackBarSetting=0//N/V
+Front3rdPackerSetting=0//N/V
+Front3rdSpringSetting=0//N/V
+Front3rdTenderSpringSetting=0//Abmontiert
+Front3rdTenderTravelSetting=0//Abmontiert
+Front3rdSlowBumpSetting=0//N/V
+Front3rdFastBumpSetting=0//N/V
+Front3rdSlowReboundSetting=0//N/V
+Front3rdFastReboundSetting=0//N/V
+Rear3rdPackerSetting=0//N/V
+Rear3rdSpringSetting=0//N/V
+Rear3rdTenderSpringSetting=0//Abmontiert
+Rear3rdTenderTravelSetting=0//Abmontiert
+Rear3rdSlowBumpSetting=0//N/V
+Rear3rdFastBumpSetting=0//N/V
+Rear3rdSlowReboundSetting=0//N/V
+Rear3rdFastReboundSetting=0//N/V
+ChassisAdj00Setting=0//N/A
+ChassisAdj01Setting=0//N/A
+ChassisAdj02Setting=0//N/A
+ChassisAdj03Setting=0//N/A
+ChassisAdj04Setting=0//N/A
+ChassisAdj05Setting=0//N/A
+ChassisAdj06Setting=0//N/A
+ChassisAdj07Setting=0//N/A
+ChassisAdj08Setting=0//N/A
+ChassisAdj09Setting=0//N/A
+ChassisAdj10Setting=0//N/A
+ChassisAdj11Setting=0//N/A
+
+[CONTROLS]
+SteerLockSetting=6//524deg (18.5deg)
+RearBrakeSetting=28//50.0:50.0
+BrakeMigrationSetting=0// 0.0
+BrakePressureSetting=80//120 kgf (100%)
+HandfrontbrakePressSetting=0//N/A
+HandbrakePressSetting=0//N/A
+TCSetting=0//Verfügbar
+ABSSetting=0//Verfügbar
+TractionControlMapSetting=5//5
+TCPowerCutMapSetting=6//6
+TCSlipAngleMapSetting=7//7
+AntilockBrakeSystemMapSetting=6//6 (Balanced)
+
+[ENGINE]
+RevLimitSetting=0//8,000
+EngineBoostSetting=0//N/A
+RegenerationMapSetting=0//0%
+ElectricMotorMapSetting=0//0
+EngineMixtureSetting=1//Race
+EngineBrakingMapSetting=0//N/A
+
+[DRIVELINE]
+FinalDriveSetting=0//Fixed
+ReverseSetting=0//Fixed
+Gear1Setting=0//Fixed
+Gear2Setting=0//Fixed
+Gear3Setting=0//Fixed
+Gear4Setting=0//Fixed
+Gear5Setting=0//Fixed
+Gear6Setting=0//Fixed
+RatioSetSetting=0//Standard
+DiffPumpSetting=0//N/A
+DiffPowerSetting=0//Non-adjustable
+DiffCoastSetting=0//Non-adjustable
+DiffPreloadSetting=15//15
+FrontDiffPumpSetting=0//0%
+FrontDiffPowerSetting=0//0%
+FrontDiffCoastSetting=0//0%
+FrontDiffPreloadSetting=0//1
+RearSplitSetting=0//RWD
+GearAutoUpShiftSetting=0//Aus
+GearAutoDownShiftSetting=0//Aus
+
+[FRONTLEFT]
+CamberSetting=11//-2.40 Grad
+PressureSetting=0//136 kPa
+PackerSetting=10//1.0 cm
+SpringSetting=0//1 (weich)
+TenderSpringSetting=1//Standard
+TenderTravelSetting=1//0 N/mm
+SpringRubberSetting=0//N/V
+RideHeightSetting=0//5.0 cm
+SlowBumpSetting=10//B31
+FastBumpSetting=25//B26
+SlowReboundSetting=21//R20
+FastReboundSetting=29//R22
+BrakeDiscSetting=0//3.60 cm
+BrakePadSetting=0//1
+CompoundSetting=0//100% Medium
+
+[FRONTRIGHT]
+CamberSetting=11//-2.40 Grad
+PressureSetting=0//136 kPa
+PackerSetting=10//1.0 cm
+SpringSetting=0//1 (weich)
+TenderSpringSetting=1//Standard
+TenderTravelSetting=1//0 N/mm
+SpringRubberSetting=0//N/V
+RideHeightSetting=0//5.0 cm
+SlowBumpSetting=10//B31
+FastBumpSetting=25//B26
+SlowReboundSetting=21//R20
+FastReboundSetting=29//R22
+BrakeDiscSetting=0//3.60 cm
+BrakePadSetting=0//1
+CompoundSetting=0//100% Medium
+
+[REARLEFT]
+CamberSetting=10//-2.50 Grad
+PressureSetting=0//136 kPa
+PackerSetting=0//0.0 cm
+SpringSetting=1//2
+TenderSpringSetting=0//Standard
+TenderTravelSetting=0//Standard
+SpringRubberSetting=0//N/V
+RideHeightSetting=14//7.3 cm
+SlowBumpSetting=21//B20
+FastBumpSetting=50//B1 (hart)
+SlowReboundSetting=35//R6
+FastReboundSetting=50//R1 (hart)
+BrakeDiscSetting=0//3.20 cm
+BrakePadSetting=0//1
+CompoundSetting=0//100% Medium
+
+[REARRIGHT]
+CamberSetting=10//-2.50 Grad
+PressureSetting=0//136 kPa
+PackerSetting=0//0.0 cm
+SpringSetting=1//2
+TenderSpringSetting=0//Standard
+TenderTravelSetting=0//Standard
+SpringRubberSetting=0//N/V
+RideHeightSetting=14//7.3 cm
+SlowBumpSetting=21//B20
+FastBumpSetting=50//B1 (hart)
+SlowReboundSetting=35//R6
+FastReboundSetting=50//R1 (hart)
+BrakeDiscSetting=0//3.20 cm
+BrakePadSetting=0//1
+CompoundSetting=0//100% Medium
+
+[BASIC]
+Downforce=0.500000
+Balance=0.500000
+Ride=0.500000
+Gearing=0.500000
+Custom=1
+
