@@ -56,7 +56,7 @@ TEXTS: dict[str, dict[str, str]] = {
             "💬 Ideas, suggestions, new setups — dev: @unjsxx128"
         ),
         "btn_contact": "💬 Message the developer",
-        "newsetups_header": "🆕 <b>New setups added!</b>",
+        "newsetups_header": "🆕 <b>New/updated setups added!</b>",
         "newsetups_more": "…and {n} more",
         "newsetups_footer": "\nGrab them via /menu 🏁",
         "btn_schedule": "📅 What's active now",
@@ -125,7 +125,7 @@ TEXTS: dict[str, dict[str, str]] = {
             "💬 Идеи, предложения, новые сетапы — dev: @unjsxx128"
         ),
         "btn_contact": "💬 Написать разработчику",
-        "newsetups_header": "🆕 <b>Добавлены новые сетапы!</b>",
+        "newsetups_header": "🆕 <b>Добавлены/обновлены новые сетапы!</b>",
         "newsetups_more": "…и ещё {n}",
         "newsetups_footer": "\nЗабрать можно через /menu 🏁",
         "btn_schedule": "📅 Что сейчас в игре",
