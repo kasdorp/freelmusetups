@@ -10,7 +10,8 @@ TEXTS: dict[str, dict[str, str]] = {
             "Pick a car → track → setup maker, and get the file in seconds.\n"
             "{version_line}\n"
             "📦 In the library right now: <b>{n_setups}</b> setups • "
-            "<b>{n_cars}</b> cars • <b>{n_tracks}</b> tracks"
+            "<b>{n_cars}</b> cars • <b>{n_tracks}</b> tracks\n\n"
+            "🎮 My LMU overlays — SimpleInputs. Free during beta! Follow: t.me/simpleinputs"
         ),
         "version_line": "\n🎮 Setups for game version: <b>{v}</b>\n",
         "btn_get": "🔧 Get a setup",
@@ -30,7 +31,8 @@ TEXTS: dict[str, dict[str, str]] = {
         "file_caption": (
             "🏎 <b>{car}</b>\n📍 {track}\n👨‍🔧 {author}\n\n"
             "📥 Put this file into:\n<code>...\\Le Mans Ultimate\\UserData\\player\\Settings\\{track_folder}\\</code>\n"
-            "then in game: Garage → Setup → load it. GL &amp; HF! 🏁"
+            "then in game: Garage → Setup → load it. GL &amp; HF! 🏁\n\n"
+            "🎮 My LMU overlays — t.me/simpleinputs"
         ),
         "no_setups": "😔 Nothing here yet — new setups are added regularly, check back soon!",
         "empty_library": "😔 The setup library is empty right now. Check back soon!",
@@ -79,7 +81,9 @@ TEXTS: dict[str, dict[str, str]] = {
             "Выбери машину → трассу → автора сетапа — и получи файл за секунды.\n"
             "{version_line}\n"
             "📦 Сейчас в библиотеке: <b>{n_setups}</b> сетапов • "
-            "<b>{n_cars}</b> машин • <b>{n_tracks}</b> трасс"
+            "<b>{n_cars}</b> машин • <b>{n_tracks}</b> трасс\n\n"
+            "🎮 Мои оверлеи для LMU — SimpleInputs. В период беты — абсолютно бесплатно! "
+            "Подписывайтесь: t.me/simpleinputs"
         ),
         "version_line": "\n🎮 Сетапы под версию игры: <b>{v}</b>\n",
         "btn_get": "🔧 Получить сетап",
@@ -99,7 +103,8 @@ TEXTS: dict[str, dict[str, str]] = {
         "file_caption": (
             "🏎 <b>{car}</b>\n📍 {track}\n👨‍🔧 {author}\n\n"
             "📥 Положите файл в папку:\n<code>...\\Le Mans Ultimate\\UserData\\player\\Settings\\{track_folder}\\</code>\n"
-            "затем в игре: Гараж → Настройки (Setup) → загрузить. Удачи на трассе! 🏁"
+            "затем в игре: Гараж → Настройки (Setup) → загрузить. Удачи на трассе! 🏁\n\n"
+            "🎮 Мои оверлеи для LMU — t.me/simpleinputs"
         ),
         "no_setups": "😔 Тут пока пусто — новые сетапы добавляются регулярно, загляните позже!",
         "empty_library": "😔 Библиотека сетапов пока пуста. Загляните позже!",
