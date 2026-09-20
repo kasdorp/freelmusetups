@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import asyncio
+import logging
 import os
 import subprocess
 import sys
@@ -14,13 +15,14 @@ from aiogram.types import (CallbackQuery, FSInputFile, InlineKeyboardButton,
 
 import storage
 from catalog import car_name, track_name
-from config import BASE_DIR
+from config import BASE_DIR, REQUIRED_CHANNEL
 from i18n import t
 from keyboards import (kb_authors, kb_cars, kb_classes, kb_files, kb_language,
                        kb_main, kb_tracks, nav_row, resolve)
 from library import get_snapshot
 from schedule import format_schedule, get_schedule
 
+log = logging.getLogger(__name__)
 router = Router()
 
 
@@ -128,17 +130,55 @@ async def cb_schedule(cb: CallbackQuery) -> None:
     await cb.answer()
 
 
+# ---- required-channel subscription gate ------------------------------------
+
+async def is_subscribed(bot, user_id: int) -> bool:
+    """Fails open (treats errors as subscribed) so a Telegram API hiccup or a
+    misconfigured bot-not-admin-in-channel doesn't lock everyone out."""
+    try:
+        member = await bot.get_chat_member(REQUIRED_CHANNEL, user_id)
+        return member.status not in ("left", "kicked")
+    except Exception:
+        log.exception("Subscription check failed for %s", user_id)
+        return True
+
+
+def kb_subscribe(lang: str) -> InlineKeyboardMarkup:
+    channel_url = f"https://t.me/{REQUIRED_CHANNEL.lstrip('@')}"
+    return InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton(text=t(lang, "btn_subscribe"), url=channel_url)],
+        [InlineKeyboardButton(text=t(lang, "btn_check_sub"), callback_data="checksub")],
+    ])
+
+
 # ---- setup browsing: class -> car -> track -> author -> file --------------
 
-@router.callback_query(F.data == "get")
-async def cb_get(cb: CallbackQuery) -> None:
-    lang = user_lang(cb.from_user.id) or "en"
+async def _show_classes(cb: CallbackQuery, lang: str) -> None:
     snap = get_snapshot()
     if not snap.setups:
         await cb.answer(t(lang, "empty_library"), show_alert=True)
         return
     await cb.message.edit_text(t(lang, "choose_class"), reply_markup=kb_classes(snap, lang))
     await cb.answer()
+
+
+@router.callback_query(F.data == "get")
+async def cb_get(cb: CallbackQuery) -> None:
+    lang = user_lang(cb.from_user.id) or "en"
+    if not await is_subscribed(cb.bot, cb.from_user.id):
+        await cb.message.edit_text(t(lang, "subscribe_required"), reply_markup=kb_subscribe(lang))
+        await cb.answer()
+        return
+    await _show_classes(cb, lang)
+
+
+@router.callback_query(F.data == "checksub")
+async def cb_checksub(cb: CallbackQuery) -> None:
+    lang = user_lang(cb.from_user.id) or "en"
+    if not await is_subscribed(cb.bot, cb.from_user.id):
+        await cb.answer(t(lang, "sub_still_missing"), show_alert=True)
+        return
+    await _show_classes(cb, lang)
 
 
 @router.callback_query(F.data.startswith("cls|"))

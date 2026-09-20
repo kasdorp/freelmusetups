@@ -10,8 +10,7 @@ TEXTS: dict[str, dict[str, str]] = {
             "Pick a car → track → setup maker, and get the file in seconds.\n"
             "{version_line}\n"
             "📦 In the library right now: <b>{n_setups}</b> setups • "
-            "<b>{n_cars}</b> cars • <b>{n_tracks}</b> tracks\n\n"
-            "🎮 My LMU overlays — SimpleInputs. Free during beta! Follow: t.me/simpleinputs"
+            "<b>{n_cars}</b> cars • <b>{n_tracks}</b> tracks"
         ),
         "version_line": "\n🎮 Setups for game version: <b>{v}</b>\n",
         "btn_get": "🔧 Get a setup",
@@ -71,6 +70,13 @@ TEXTS: dict[str, dict[str, str]] = {
         "schedule_classes": "Classes",
         "schedule_footer": "Source: lmuschedule.com",
         "schedule_unavailable": "⚠️ Couldn't load the schedule right now — try again in a bit.",
+        "subscribe_required": (
+            "I'm building my own LMU overlays — SimpleInputs. Free during beta — "
+            "subscribe and follow the updates: t.me/simpleinputs. Hope to hear from you."
+        ),
+        "btn_subscribe": "📡 Subscribe to the channel",
+        "btn_check_sub": "✅ I've subscribed",
+        "sub_still_missing": "⚠️ Still not seeing a subscription — try again after subscribing.",
     },
     "ru": {
         "choose_lang": "👋 Добро пожаловать в <b>LMU Setup Bot</b>!\n\nВыберите язык:",
@@ -81,9 +87,7 @@ TEXTS: dict[str, dict[str, str]] = {
             "Выбери машину → трассу → автора сетапа — и получи файл за секунды.\n"
             "{version_line}\n"
             "📦 Сейчас в библиотеке: <b>{n_setups}</b> сетапов • "
-            "<b>{n_cars}</b> машин • <b>{n_tracks}</b> трасс\n\n"
-            "🎮 Мои оверлеи для LMU — SimpleInputs. В период беты — абсолютно бесплатно! "
-            "Подписывайтесь: t.me/simpleinputs"
+            "<b>{n_cars}</b> машин • <b>{n_tracks}</b> трасс"
         ),
         "version_line": "\n🎮 Сетапы под версию игры: <b>{v}</b>\n",
         "btn_get": "🔧 Получить сетап",
@@ -143,6 +147,13 @@ TEXTS: dict[str, dict[str, str]] = {
         "schedule_classes": "Классы",
         "schedule_footer": "Источник: lmuschedule.com",
         "schedule_unavailable": "⚠️ Не удалось загрузить расписание — попробуйте чуть позже.",
+        "subscribe_required": (
+            "Я создаю свои оверлеи для LMU - SimpleInputs. В период беты - абсолютно бесплатно, "
+            "подписывайтесь и следите за обновлениями - t.me/simpleinputs. Надеюсь на ваш отклик."
+        ),
+        "btn_subscribe": "📡 Подписаться на канал",
+        "btn_check_sub": "✅ Я подписался",
+        "sub_still_missing": "⚠️ Подписка пока не видна — попробуйте ещё раз после подписки.",
     },
 }
 

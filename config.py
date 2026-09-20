@@ -24,3 +24,7 @@ DATA_DIR: Path = Path(os.getenv("DATA_DIR", BASE_DIR / "data"))
 # How long (seconds) a library scan is cached before the folder is re-checked.
 # Small value = new setup files appear in the bot almost instantly.
 LIBRARY_CACHE_TTL: int = int(os.getenv("LIBRARY_CACHE_TTL", "15"))
+
+# Channel users must be subscribed to before browsing/downloading setups.
+# The bot must be an admin of this channel, otherwise getChatMember fails.
+REQUIRED_CHANNEL: str = os.getenv("REQUIRED_CHANNEL", "@simpleinputs").strip()
