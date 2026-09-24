@@ -1,0 +1,205 @@
+VehicleClassSetting="Hypercar Isotta_TIPO6 WEC2024"
+UpgradeSetting=(9506,0,0,0)
+//VEH=C:\SteamLibrary\steamapps\common\Le Mans Ultimate\Installed\Vehicles\Isotta_Tipo6_2024\1.25\11_24_ISOTTA_A715S6.VEH
+//UpgradeClass=
+//Tyre Restrictions=2
+//Visor Mod=0
+//AI Tweaks=18
+//Atmos Conditions=18
+//Note: settings commented out if using the default
+
+[GENERAL]
+Notes=""
+Symmetric=1
+CGHeightSetting=0//Non-adjustable
+CGRightSetting=0//Non-adjustable
+CGRearSetting=0//Non-adjustable
+WedgeSetting=0//N/A
+FuelSetting=74//0.79
+FuelCapacitySetting=0//79.0l (40.9 laps)
+VirtualEnergySetting=100//100% (39.3 laps)
+NumPitstopsSetting=0//0
+Pitstop1Setting=90//N/D
+Pitstop2Setting=90//N/D
+Pitstop3Setting=90//N/D
+
+[LEFTFENDER]
+FenderFlareSetting=0//N/D
+
+[RIGHTFENDER]
+FenderFlareSetting=0//N/D
+
+[FRONTWING]
+FWSetting=0//Standard
+
+[REARWING]
+RWSetting=13//P14
+
+[BODYAERO]
+WaterRadiatorSetting=0//No tape
+OilRadiatorSetting=0//No tape
+BrakeDuctSetting=0//Open
+BrakeDuctRearSetting=0//Open
+
+[SUSPENSION]
+FrontWheelTrackSetting=0//Non-adjustable
+RearWheelTrackSetting=0//Non-adjustable
+FrontAntiSwaySetting=7//P7
+RearAntiSwaySetting=0//Detached
+FrontToeInSetting=15//-0.06 deg
+FrontToeOffsetSetting=0//N/A
+RearToeInSetting=19//0.18 deg
+RearToeOffsetSetting=0//N/A
+LeftCasterSetting=0//Non-adjustable
+RightCasterSetting=0//Non-adjustable
+LeftTrackBarSetting=0//N/A
+RightTrackBarSetting=0//N/A
+Front3rdPackerSetting=8//0.8 cm
+Front3rdSpringSetting=0//detached
+Front3rdTenderSpringSetting=0//Separata
+Front3rdTenderTravelSetting=0//Separata
+Front3rdSlowBumpSetting=0//1 (morbida)
+Front3rdFastBumpSetting=1//2
+Front3rdSlowReboundSetting=0//1 (morbida)
+Front3rdFastReboundSetting=7//8
+Rear3rdPackerSetting=0//0.0 cm
+Rear3rdSpringSetting=0//detached
+Rear3rdTenderSpringSetting=0//Separata
+Rear3rdTenderTravelSetting=0//Separata
+Rear3rdSlowBumpSetting=0//1 (morbida)
+Rear3rdFastBumpSetting=1//2
+Rear3rdSlowReboundSetting=7//8
+Rear3rdFastReboundSetting=7//8
+ChassisAdj00Setting=0//N/A
+ChassisAdj01Setting=0//N/A
+ChassisAdj02Setting=0//N/A
+ChassisAdj03Setting=0//N/A
+ChassisAdj04Setting=0//N/A
+ChassisAdj05Setting=0//N/A
+ChassisAdj06Setting=0//N/A
+ChassisAdj07Setting=0//N/A
+ChassisAdj08Setting=0//N/A
+ChassisAdj09Setting=0//N/A
+ChassisAdj10Setting=0//N/A
+ChassisAdj11Setting=0//N/A
+
+[CONTROLS]
+SteerLockSetting=0//397 (15) deg
+RearBrakeSetting=22//50.1:49.9
+BrakeMigrationSetting=0//2.5% F
+BrakePressureSetting=67//107 kgf (89%)
+HandfrontbrakePressSetting=0//0%
+HandbrakePressSetting=0//N/A
+TCSetting=0//Disponibile
+ABSSetting=0//N/D
+TractionControlMapSetting=8//8
+TCPowerCutMapSetting=7//7
+TCSlipAngleMapSetting=9//9
+AntilockBrakeSystemMapSetting=0//N/A
+
+[ENGINE]
+RevLimitSetting=0//8,800
+EngineBoostSetting=0//N/A
+RegenerationMapSetting=10//200kW
+ElectricMotorMapSetting=10//200kW
+EngineMixtureSetting=0//Full
+EngineBrakingMapSetting=0//N/A
+
+[DRIVELINE]
+FinalDriveSetting=0//3.27:1
+ReverseSetting=0//2.07 (6.78)
+Gear1Setting=0//3.08 (10.09)
+Gear2Setting=0//2.29 (7.48)
+Gear3Setting=0//1.82 (5.97)
+Gear4Setting=0//1.53 (5.01)
+Gear5Setting=0//1.32 (4.31)
+Gear6Setting=0//1.15 (3.76)
+Gear7Setting=0//1.05 (3.44)
+RatioSetSetting=0//Short
+DiffPumpSetting=0//N/A
+DiffPowerSetting=0//10%
+DiffCoastSetting=18//100%
+DiffPreloadSetting=0//0 Nm
+FrontDiffPumpSetting=0//N/A
+FrontDiffPowerSetting=2//20%
+FrontDiffCoastSetting=0//10%
+FrontDiffPreloadSetting=0//0 Nm
+RearSplitSetting=0// 0.0:100.0
+GearAutoUpShiftSetting=0//Disattivato
+GearAutoDownShiftSetting=0//Disattivato
+
+[FRONTLEFT]
+CamberSetting=26//-1.4 deg
+PressureSetting=0//131 kPa
+PackerSetting=0//0.0 cm
+SpringSetting=5//890N/mm
+TenderSpringSetting=0//Separata
+TenderTravelSetting=0//Separata
+SpringRubberSetting=0//Separata
+RideHeightSetting=2//4.2 cm
+SlowBumpSetting=0//1 (morbida)
+FastBumpSetting=3//4
+SlowReboundSetting=0//1 (morbida)
+FastReboundSetting=9//10
+BrakeDiscSetting=0//3.40 cm
+BrakePadSetting=0//1
+CompoundSetting=1//Media
+
+[FRONTRIGHT]
+CamberSetting=26//-1.4 deg
+PressureSetting=0//131 kPa
+PackerSetting=0//0.0 cm
+SpringSetting=5//890N/mm
+TenderSpringSetting=0//Separata
+TenderTravelSetting=0//Separata
+SpringRubberSetting=0//Separata
+RideHeightSetting=2//4.2 cm
+SlowBumpSetting=0//1 (morbida)
+FastBumpSetting=3//4
+SlowReboundSetting=0//1 (morbida)
+FastReboundSetting=9//10
+BrakeDiscSetting=0//3.40 cm
+BrakePadSetting=0//1
+CompoundSetting=1//Media
+
+[REARLEFT]
+CamberSetting=18//-1.2 deg
+PressureSetting=0//131 kPa
+PackerSetting=0//0.0 cm
+SpringSetting=0//1133N/mm
+TenderSpringSetting=0//Separata
+TenderTravelSetting=0//Separata
+SpringRubberSetting=0//Separata
+RideHeightSetting=20//8.0 cm
+SlowBumpSetting=0//1 (morbida)
+FastBumpSetting=0//1 (morbida)
+SlowReboundSetting=6//7
+FastReboundSetting=8//9
+BrakeDiscSetting=0//3.20 cm
+BrakePadSetting=0//1
+CompoundSetting=1//Media
+
+[REARRIGHT]
+CamberSetting=18//-1.2 deg
+PressureSetting=0//131 kPa
+PackerSetting=0//0.0 cm
+SpringSetting=0//1133N/mm
+TenderSpringSetting=0//Separata
+TenderTravelSetting=0//Separata
+SpringRubberSetting=0//Separata
+RideHeightSetting=20//8.0 cm
+SlowBumpSetting=0//1 (morbida)
+FastBumpSetting=0//1 (morbida)
+SlowReboundSetting=6//7
+FastReboundSetting=8//9
+BrakeDiscSetting=0//3.20 cm
+BrakePadSetting=0//1
+CompoundSetting=1//Media
+
+[BASIC]
+Downforce=0.500000
+Balance=0.500000
+Ride=0.500000
+Gearing=0.500000
+Custom=1
+

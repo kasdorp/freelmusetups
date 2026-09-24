@@ -33,9 +33,13 @@ _CLASS_RE = re.compile(r'VehicleClassSetting\s*=\s*"([^"]*)"', re.IGNORECASE)
 # happen to contain Q/R ("HUR", "RCF", "BAR") don't get mistaken for session
 # codes. The suffix is kept to the one observed word ("safe") rather than any
 # lowercase run — a generic `[a-z]*` here would also swallow track names like
-# "Qatar" (Q + "atar"), misreading them as quali markers.
+# "Qatar" (Q + "atar"), misreading them as quali markers. A bare lowercase
+# "q"/"r" token is also accepted, but only without a prefix — with one, words
+# like "Safer" would read as Safe + r.
 _SESSION_RE = re.compile(
-    r"(?:^|[\s_\-.])(?:[A-Z][a-z]*)?(?P<code>Q(?:uali)?|R(?:ace)?)\d*(?:safe)?(?=$|[\s_\-.])"
+    r"(?:^|[\s_\-.])"
+    r"(?:(?:[A-Z][a-z]*)?(?P<code>Q(?:uali)?|R(?:ace)?)|(?P<lcode>[qr]))"
+    r"\d*(?:safe)?(?=$|[\s_\-.])"
 )
 
 
@@ -109,7 +113,8 @@ def _detect_kind(stem: str) -> str:
     matches = list(_SESSION_RE.finditer(stem))
     if not matches:
         return ""
-    code = matches[-1].group("code")
+    last = matches[-1]
+    code = last.group("code") or last.group("lcode")
     return "Q" if code[0].upper() == "Q" else "R"
 
 
