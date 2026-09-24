@@ -116,11 +116,32 @@ def get_announced_ids() -> set[str]:
     return set(_announced.get("ids", []))
 
 
-def mark_announced(ids: set[str]) -> None:
+def get_announced_combos() -> set[tuple[str, str, str]] | None:
+    """(car, track, author) combos already announced. None if announced.json
+    predates combo tracking — caller seeds it from the announced ids."""
+    raw = _announced.get("combos")
+    if raw is None:
+        return None
+    return {tuple(c) for c in raw}
+
+
+def get_announced_hashes() -> dict[str, str] | None:
+    """setup id -> content hash at the time it was announced. None if
+    announced.json predates hash tracking — caller seeds it."""
+    return _announced.get("hashes")
+
+
+def mark_announced(ids: set[str], combos: set[tuple[str, str, str]],
+                   hashes: dict[str, str]) -> None:
     with _lock:
         current = set(_announced.get("ids", []))
         current |= ids
         _announced["ids"] = sorted(current)
+        known = {tuple(c) for c in _announced.get("combos", [])} | combos
+        _announced["combos"] = sorted(list(c) for c in known)
+        merged = dict(_announced.get("hashes") or {})
+        merged.update(hashes)
+        _announced["hashes"] = merged
         _save(_ANNOUNCED_FILE, _announced)
 
 

@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import asyncio
+import hashlib
 import logging
 import os
 import subprocess
@@ -283,53 +284,98 @@ async def cmd_reload(message: Message) -> None:
     await message.answer(f"♻️ Library reloaded: {len(snap.setups)} setups.")
 
 
+def _combo(s) -> tuple[str, str, str]:
+    return (s.car, s.track, s.author)
+
+
+def _file_hash(s) -> str:
+    return hashlib.sha1(s.path.read_bytes()).hexdigest()[:16]
+
+
+def _combo_lines(setups) -> list[str]:
+    combos = sorted({(s.car_name, track_name(s.track), s.author) for s in setups})
+    return [f"🏎 {car} @ {track} ({author})" for car, track, author in combos]
+
+
+def _newsetups_text(lang: str, new_lines: list[str], upd_lines: list[str],
+                    max_lines: int = 40) -> str:
+    parts = [t(lang, "newsetups_header")]
+    budget, hidden = max_lines, 0
+    for title_key, lines in (("newsetups_new_title", new_lines),
+                             ("newsetups_upd_title", upd_lines)):
+        shown = lines[:budget]
+        hidden += len(lines) - len(shown)
+        budget -= len(shown)
+        if shown:
+            parts.append("\n" + t(lang, title_key) + "\n" + "\n".join(shown))
+    if hidden:
+        parts.append(t(lang, "newsetups_more", n=hidden))
+    return "\n".join(parts) + t(lang, "newsetups_footer")
+
+
 @router.message(Command("newsetups"))
 async def cmd_newsetups(message: Message) -> None:
-    """Broadcast to every user who has ever /start-ed the bot about setups
-    added since the last time this command ran. First run just records the
-    current library as the baseline (no broadcast) — otherwise the very first
-    call would blast the entire existing library at everyone."""
+    """Broadcast to every user who has ever /start-ed the bot what changed in
+    the library since the last run, in two groups:
+    - new: a car+track+author combo that didn't exist before;
+    - updated: a new version file of a known combo (HYMO 1.4.1 -> 1.4.2), or a
+      same-name file replaced with different content (tracked by content hash,
+      since the id is path-based and doesn't change on overwrite).
+    First run just records the current library as the baseline (no broadcast)
+    — otherwise the very first call would blast the entire library at everyone."""
     if not storage.is_admin(message.from_user.id):
         return
     snap = get_snapshot(force=True)
     current_ids = {s.id: s for s in snap.setups}
+    current_hashes = {i: _file_hash(s) for i, s in current_ids.items()}
 
     if not storage.has_announced_baseline():
-        storage.mark_announced(set(current_ids))
+        storage.mark_announced(set(current_ids), {_combo(s) for s in snap.setups}, current_hashes)
         await message.answer(
             f"ℹ️ First run — baseline set with the current {len(current_ids)} setups. "
             f"Nothing was announced. Next time, only what's new since now will be sent."
         )
         return
 
-    new_ids = set(current_ids) - storage.get_announced_ids()
-    if not new_ids:
-        await message.answer("ℹ️ No new setups since the last announcement.")
+    # announced.json written by older versions lacks combos/hashes: seed them
+    # from the ids already announced, so this run doesn't flag everything
+    announced_ids = storage.get_announced_ids()
+    known_combos = storage.get_announced_combos()
+    if known_combos is None:
+        known_combos = {_combo(s) for i, s in current_ids.items() if i in announced_ids}
+    known_hashes = storage.get_announced_hashes()
+    if known_hashes is None:
+        known_hashes = {i: h for i, h in current_hashes.items() if i in announced_ids}
+
+    new_setups = [s for i, s in current_ids.items() if i not in announced_ids]
+    added = [s for s in new_setups if _combo(s) not in known_combos]
+    updated = [s for s in new_setups if _combo(s) in known_combos]
+    updated += [s for i, s in current_ids.items()
+                if i in known_hashes and known_hashes[i] != current_hashes[i]]
+
+    all_combos = known_combos | {_combo(s) for s in new_setups}
+    if not added and not updated:
+        storage.mark_announced(set(), all_combos, current_hashes)
+        await message.answer("ℹ️ No new or updated setups since the last announcement.")
         return
 
-    new_setups = [current_ids[i] for i in new_ids]
-    combos = sorted({(s.car_name, track_name(s.track), s.author) for s in new_setups})
-    max_lines = 40
-    lines = [f"🏎 {car} @ {track} ({author})" for car, track, author in combos[:max_lines]]
-    extra = len(combos) - max_lines
+    new_lines = _combo_lines(added)
+    upd_lines = [line for line in _combo_lines(updated) if line not in new_lines]
 
     sent = failed = 0
     for uid in storage.get_all_user_ids():
         lang = storage.get_lang(uid) or "en"
-        body = "\n".join(lines)
-        if extra > 0:
-            body += "\n" + t(lang, "newsetups_more", n=extra)
-        text = t(lang, "newsetups_header") + "\n\n" + body + t(lang, "newsetups_footer")
         try:
-            await message.bot.send_message(uid, text)
+            await message.bot.send_message(uid, _newsetups_text(lang, new_lines, upd_lines))
             sent += 1
         except Exception:
             failed += 1
         await asyncio.sleep(0.05)
 
-    storage.mark_announced(new_ids)
+    storage.mark_announced({s.id for s in new_setups}, all_combos, current_hashes)
     await message.answer(
-        f"✅ Announced {len(combos)} new setup(s) ({len(new_setups)} files) to {sent} users "
+        f"✅ Announced {len(new_lines)} new + {len(upd_lines)} updated setup(s) "
+        f"({len(added)} + {len(updated)} files) to {sent} users "
         f"({failed} failed/blocked the bot)."
     )
 
