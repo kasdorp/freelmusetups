@@ -12,14 +12,15 @@ from html import escape as html_escape
 from aiogram import F, Router
 from aiogram.filters import Command, CommandStart
 from aiogram.types import (CallbackQuery, FSInputFile, InlineKeyboardButton,
-                           InlineKeyboardMarkup, Message)
+                           InlineKeyboardMarkup, LabeledPrice, Message,
+                           PreCheckoutQuery)
 
 import storage
 from catalog import car_name, track_name
 from config import BASE_DIR, REQUIRED_CHANNEL
 from i18n import t
-from keyboards import (kb_authors, kb_cars, kb_classes, kb_files, kb_language,
-                       kb_main, kb_tracks, nav_row, resolve)
+from keyboards import (DONATE_AMOUNTS, kb_authors, kb_cars, kb_classes, kb_donate,
+                       kb_files, kb_language, kb_main, kb_tracks, nav_row, resolve)
 from library import get_snapshot
 from schedule import format_schedule, get_schedule
 
@@ -129,6 +130,47 @@ async def cb_schedule(cb: CallbackQuery) -> None:
     else:
         await cb.message.edit_text(format_schedule(body, lang), reply_markup=kb)
     await cb.answer()
+
+
+# ---- donations (Telegram Stars) --------------------------------------------
+
+@router.callback_query(F.data == "donate")
+async def cb_donate(cb: CallbackQuery) -> None:
+    lang = user_lang(cb.from_user.id) or "en"
+    await cb.message.edit_text(t(lang, "donate_text"), reply_markup=kb_donate(lang))
+    await cb.answer()
+
+
+@router.callback_query(F.data.startswith("don|"))
+async def cb_donate_amount(cb: CallbackQuery) -> None:
+    lang = user_lang(cb.from_user.id) or "en"
+    raw = cb.data.split("|", 1)[1]
+    if not raw.isdigit() or int(raw) not in DONATE_AMOUNTS:
+        await cb.answer()
+        return
+    amount = int(raw)
+    # Stars ("XTR") need no payment provider, so provider_token is omitted
+    await cb.message.answer_invoice(
+        title=t(lang, "donate_title", n=amount),
+        description=t(lang, "donate_desc"),
+        payload=f"donate:{amount}",
+        currency="XTR",
+        prices=[LabeledPrice(label=t(lang, "donate_title", n=amount), amount=amount)],
+    )
+    await cb.answer()
+
+
+@router.pre_checkout_query()
+async def on_pre_checkout(query: PreCheckoutQuery) -> None:
+    await query.answer(ok=True)
+
+
+@router.message(F.successful_payment)
+async def on_successful_payment(message: Message) -> None:
+    lang = user_lang(message.from_user.id) or "en"
+    amount = message.successful_payment.total_amount
+    log.info("Donation: %s stars from %s", amount, message.from_user.id)
+    await message.answer(t(lang, "donate_thanks", n=amount))
 
 
 # ---- required-channel subscription gate ------------------------------------

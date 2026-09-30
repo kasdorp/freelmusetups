@@ -55,7 +55,22 @@ def kb_main(lang: str) -> InlineKeyboardMarkup:
         InlineKeyboardButton(text=t(lang, "btn_help"), callback_data="help"),
         InlineKeyboardButton(text=t(lang, "btn_about"), callback_data="about"),
     )
-    b.row(InlineKeyboardButton(text=t(lang, "btn_lang"), callback_data="langmenu"))
+    b.row(
+        InlineKeyboardButton(text=t(lang, "btn_lang"), callback_data="langmenu"),
+        InlineKeyboardButton(text=t(lang, "btn_donate"), callback_data="donate"),
+    )
+    return b.as_markup()
+
+
+DONATE_AMOUNTS = (25, 50, 75, 100, 250, 500, 1000)
+
+
+def kb_donate(lang: str) -> InlineKeyboardMarkup:
+    b = InlineKeyboardBuilder()
+    buttons = [InlineKeyboardButton(text=f"⭐ {n}", callback_data=f"don|{n}") for n in DONATE_AMOUNTS]
+    for i in range(0, len(buttons), 3):
+        b.row(*buttons[i:i + 3])
+    b.row(*nav_row(lang, None))
     return b.as_markup()
 
 

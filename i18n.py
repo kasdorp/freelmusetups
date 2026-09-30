@@ -79,6 +79,15 @@ TEXTS: dict[str, dict[str, str]] = {
         "btn_subscribe": "📡 Subscribe to the channel",
         "btn_check_sub": "✅ I've subscribed",
         "sub_still_missing": "⚠️ Still not seeing a subscription — try again after subscribing.",
+        "btn_donate": "⭐ Donate",
+        "donate_text": (
+            "⭐ <b>Support the developer</b>\n\n"
+            "The bot is free. If it helped you, you can support it with Telegram Stars. "
+            "Choose an amount:"
+        ),
+        "donate_title": "Donation ⭐{n}",
+        "donate_desc": "Thank you for supporting LMU Setup Bot!",
+        "donate_thanks": "💛 Thank you for the support! Received ⭐{n}.",
     },
     "ru": {
         "choose_lang": "👋 Добро пожаловать в <b>LMU Setup Bot</b>!\n\nВыберите язык:",
@@ -158,6 +167,15 @@ TEXTS: dict[str, dict[str, str]] = {
         "btn_subscribe": "📡 Подписаться на канал",
         "btn_check_sub": "✅ Я подписался",
         "sub_still_missing": "⚠️ Подписка пока не видна — попробуйте ещё раз после подписки.",
+        "btn_donate": "⭐ Donate",
+        "donate_text": (
+            "⭐ <b>Поддержать разработчика</b>\n\n"
+            "Бот бесплатный. Если он помог — можно поддержать звёздами Telegram. "
+            "Выберите сумму:"
+        ),
+        "donate_title": "Донат ⭐{n}",
+        "donate_desc": "Спасибо за поддержку LMU Setup Bot!",
+        "donate_thanks": "💛 Спасибо за поддержку! Получено ⭐{n}.",
     },
 }
 
