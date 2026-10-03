@@ -13,7 +13,7 @@ from aiogram import F, Router
 from aiogram.filters import Command, CommandStart
 from aiogram.types import (CallbackQuery, FSInputFile, InlineKeyboardButton,
                            InlineKeyboardMarkup, LabeledPrice, Message,
-                           PreCheckoutQuery)
+                           PreCheckoutQuery, TransactionPartnerUser, User)
 
 import storage
 from catalog import car_name, track_name
@@ -165,12 +165,24 @@ async def on_pre_checkout(query: PreCheckoutQuery) -> None:
     await query.answer(ok=True)
 
 
+def _user_label(user: User) -> str:
+    name = html_escape(user.full_name)
+    return f"{name} (@{user.username})" if user.username else f"{name} (<code>{user.id}</code>)"
+
+
 @router.message(F.successful_payment)
 async def on_successful_payment(message: Message) -> None:
     lang = user_lang(message.from_user.id) or "en"
     amount = message.successful_payment.total_amount
     log.info("Donation: %s stars from %s", amount, message.from_user.id)
     await message.answer(t(lang, "donate_thanks", n=amount))
+    for admin_id in storage.get_admin_ids():
+        try:
+            await message.bot.send_message(
+                admin_id, f"⭐ New donation: <b>{amount}</b> stars from {_user_label(message.from_user)}"
+            )
+        except Exception:
+            log.exception("Couldn't notify admin %s about a donation", admin_id)
 
 
 # ---- required-channel subscription gate ------------------------------------
@@ -522,3 +534,46 @@ async def cmd_stats(message: Message) -> None:
     ]
     lines += [f"  {n}× — {label}" for label, n in top] or ["  —"]
     await message.answer("\n".join(lines))
+
+
+def _donations_text(balance: int, donations: list, max_lines: int = 20) -> str:
+    if not donations:
+        return f"⭐ Stars balance: <b>{balance}</b>\n\nNo donations yet."
+    total = sum(tx.amount for tx in donations)
+    people = len({tx.source.user.id for tx in donations})
+    lines = [
+        f"⭐ Stars balance: <b>{balance}</b>",
+        f"💰 Donated in total: <b>{total}</b> stars "
+        f"({len(donations)} donations from {people} people)",
+        "",
+        "🕓 Latest (UTC):",
+    ]
+    for tx in sorted(donations, key=lambda tx: tx.date, reverse=True)[:max_lines]:
+        lines.append(f"  {tx.date:%d.%m.%Y %H:%M} — <b>{tx.amount}</b> ⭐ — {_user_label(tx.source.user)}")
+    if len(donations) > max_lines:
+        lines.append(f"  …and {len(donations) - max_lines} earlier")
+    return "\n".join(lines)
+
+
+@router.message(Command("donations"))
+async def cmd_donations(message: Message) -> None:
+    """Donation history straight from Telegram's own Stars ledger, so it also
+    covers donations made before this command existed and needs no local file.
+    Incoming transactions from users are donations — the bot sells nothing else."""
+    if not storage.is_admin(message.from_user.id):
+        return
+    try:
+        balance = await message.bot.get_my_star_balance()
+        donations, offset = [], 0
+        while True:
+            page = await message.bot.get_star_transactions(offset=offset, limit=100)
+            donations += [tx for tx in page.transactions
+                          if isinstance(tx.source, TransactionPartnerUser)]
+            if len(page.transactions) < 100:
+                break
+            offset += 100
+    except Exception:
+        log.exception("Couldn't load Stars transactions")
+        await message.answer("❌ Couldn't load the donation history from Telegram, try again later.")
+        return
+    await message.answer(_donations_text(balance.amount, donations))
