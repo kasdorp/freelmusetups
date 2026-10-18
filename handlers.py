@@ -20,7 +20,8 @@ from catalog import car_name, track_name
 from config import BASE_DIR, REQUIRED_CHANNEL
 from i18n import t
 from keyboards import (DONATE_AMOUNTS, kb_authors, kb_cars, kb_classes, kb_donate,
-                       kb_files, kb_language, kb_main, kb_tracks, nav_row, resolve)
+                       kb_file_donate, kb_files, kb_language, kb_main, kb_tracks, nav_row,
+                       resolve)
 from library import get_snapshot
 from schedule import format_schedule, get_schedule
 
@@ -137,7 +138,12 @@ async def cb_schedule(cb: CallbackQuery) -> None:
 @router.callback_query(F.data == "donate")
 async def cb_donate(cb: CallbackQuery) -> None:
     lang = user_lang(cb.from_user.id) or "en"
-    await cb.message.edit_text(t(lang, "donate_text"), reply_markup=kb_donate(lang))
+    if cb.message.document:
+        # pressed under a delivered setup file: a document can't become a text
+        # message, and the file with its install caption should stay anyway
+        await cb.message.answer(t(lang, "donate_text"), reply_markup=kb_donate(lang))
+    else:
+        await cb.message.edit_text(t(lang, "donate_text"), reply_markup=kb_donate(lang))
     await cb.answer()
 
 
@@ -319,7 +325,8 @@ async def cb_file(cb: CallbackQuery) -> None:
         author=setup.author,
         track_folder=setup.track,
     )
-    await cb.message.answer_document(FSInputFile(setup.path), caption=caption)
+    await cb.message.answer_document(FSInputFile(setup.path), caption=caption,
+                                     reply_markup=kb_file_donate(lang))
     storage.record_download(car=setup.car_name, track=setup.track, author=setup.author)
 
 

@@ -10,7 +10,8 @@ TEXTS: dict[str, dict[str, str]] = {
             "Pick a car → track → setup maker, and get the file in seconds.\n"
             "{version_line}\n"
             "📦 In the library right now: <b>{n_setups}</b> setups • "
-            "<b>{n_cars}</b> cars • <b>{n_tracks}</b> tracks"
+            "<b>{n_cars}</b> cars • <b>{n_tracks}</b> tracks\n\n"
+            "⭐ The bot is free. If it helps you, you can support it with Telegram Stars — button below."
         ),
         "version_line": "\n🎮 Setups for game version: <b>{v}</b>\n",
         "btn_get": "🔧 Get a setup",
@@ -79,7 +80,7 @@ TEXTS: dict[str, dict[str, str]] = {
         "btn_subscribe": "📡 Subscribe to the channel",
         "btn_check_sub": "✅ I've subscribed",
         "sub_still_missing": "⚠️ Still not seeing a subscription — try again after subscribing.",
-        "btn_donate": "⭐ Donate",
+        "btn_donate": "⭐ Support the bot",
         "donate_text": (
             "⭐ <b>Support the developer</b>\n\n"
             "The bot is free. If it helped you, you can support it with Telegram Stars. "
@@ -98,7 +99,8 @@ TEXTS: dict[str, dict[str, str]] = {
             "Выбери машину → трассу → автора сетапа — и получи файл за секунды.\n"
             "{version_line}\n"
             "📦 Сейчас в библиотеке: <b>{n_setups}</b> сетапов • "
-            "<b>{n_cars}</b> машин • <b>{n_tracks}</b> трасс"
+            "<b>{n_cars}</b> машин • <b>{n_tracks}</b> трасс\n\n"
+            "⭐ Бот бесплатный. Если он тебе помогает — поддержи его звёздами Telegram, кнопка ниже."
         ),
         "version_line": "\n🎮 Сетапы под версию игры: <b>{v}</b>\n",
         "btn_get": "🔧 Получить сетап",
@@ -167,7 +169,7 @@ TEXTS: dict[str, dict[str, str]] = {
         "btn_subscribe": "📡 Подписаться на канал",
         "btn_check_sub": "✅ Я подписался",
         "sub_still_missing": "⚠️ Подписка пока не видна — попробуйте ещё раз после подписки.",
-        "btn_donate": "⭐ Donate",
+        "btn_donate": "⭐ Поддержать бота",
         "donate_text": (
             "⭐ <b>Поддержать разработчика</b>\n\n"
             "Бот бесплатный. Если он помог — можно поддержать звёздами Telegram. "

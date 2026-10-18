@@ -51,15 +51,21 @@ def kb_main(lang: str) -> InlineKeyboardMarkup:
     b = InlineKeyboardBuilder()
     b.row(InlineKeyboardButton(text=t(lang, "btn_get"), callback_data="get"))
     b.row(InlineKeyboardButton(text=t(lang, "btn_schedule"), callback_data="schedule"))
+    # full-width row of its own: tucked next to "Language" at the bottom nobody noticed it
+    b.row(InlineKeyboardButton(text=t(lang, "btn_donate"), callback_data="donate"))
     b.row(
         InlineKeyboardButton(text=t(lang, "btn_help"), callback_data="help"),
         InlineKeyboardButton(text=t(lang, "btn_about"), callback_data="about"),
     )
-    b.row(
-        InlineKeyboardButton(text=t(lang, "btn_lang"), callback_data="langmenu"),
-        InlineKeyboardButton(text=t(lang, "btn_donate"), callback_data="donate"),
-    )
+    b.row(InlineKeyboardButton(text=t(lang, "btn_lang"), callback_data="langmenu"))
     return b.as_markup()
+
+
+def kb_file_donate(lang: str) -> InlineKeyboardMarkup:
+    """Attached under every delivered setup file — right when the bot has just helped."""
+    return InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton(text=t(lang, "btn_donate"), callback_data="donate")],
+    ])
 
 
 DONATE_AMOUNTS = (25, 50, 75, 100, 250, 500, 1000)
