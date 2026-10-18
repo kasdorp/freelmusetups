@@ -1,13 +1,12 @@
-VehicleClassSetting="ELMS2025 LMP2_ELMS Oreca_07"
-UpgradeSetting=(1065480,0,0,0)
-//VEH=D:\Steam\steamapps\common\Le Mans Ultimate\Installed\Vehicles\Oreca_07_ELMS_2023\1.57\3_25_DKR_EA051AD3A.VEH
+VehicleClassSetting="ELMS2026 LMP2_ELMS Oreca_07"
+UpgradeSetting=(532740,0,0,0)
+//VEH=C:\Program Files (x86)\Steam\steamapps\common\Le Mans Ultimate\Installed\Vehicles\Oreca_07_ELMS_2023\1.61\3_26_DKR_E72469578.VEH
 //UpgradeClass=
 //Aero Package=0
-//Fuel tank=0
 //Dive planes=2
 //Engine cover gurney=0
 //Rear wing gurney=0
-//Diffuser strakes=0
+//Steering Lock=0
 //AI Tweaks=2
 //Estimates=2
 //Visor Mod=0
@@ -21,7 +20,7 @@ CGHeightSetting=0//Non-adjustable
 CGRightSetting=0//Non-adjustable
 CGRearSetting=0//Non-adjustable
 WedgeSetting=0//N/A
-FuelSetting=70//75.0L (33.0 laps)
+FuelSetting=70//75.0L (31.0 laps)
 FuelCapacitySetting=0//N/A
 NumPitstopsSetting=0//0
 Pitstop1Setting=50//N/A
@@ -38,7 +37,7 @@ FenderFlareSetting=0//Upper + Lower
 FWSetting=0//Sprint
 
 [REARWING]
-RWSetting=3//P4
+RWSetting=4//P5
 
 [BODYAERO]
 WaterRadiatorSetting=0//Open
@@ -89,7 +88,7 @@ ChassisAdj10Setting=0//N/A
 ChassisAdj11Setting=0//N/A
 
 [CONTROLS]
-SteerLockSetting=3//336 (13) deg
+SteerLockSetting=3//336 (13.0) deg
 RearBrakeSetting=15//53.2:46.8
 BrakeMigrationSetting=0// 0.0
 BrakePressureSetting=70//110 kgf (92%)
@@ -123,7 +122,7 @@ RatioSetSetting=0//Low Speed
 DiffPumpSetting=0//N/A
 DiffPowerSetting=0//FF6-60 deg
 DiffCoastSetting=4//FF6-25 deg
-DiffPreloadSetting=0//0 Nm
+DiffPreloadSetting=1//5 Nm
 FrontDiffPumpSetting=0//0%
 FrontDiffPowerSetting=0//0%
 FrontDiffCoastSetting=0//0%
