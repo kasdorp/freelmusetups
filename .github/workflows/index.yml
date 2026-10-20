@@ -1,0 +1,50 @@
+# Rebuilds setups_index.json whenever setups change, so SimpleInputs sees new
+# setups without anybody running make_index.py by hand.
+#
+# The index goes to a branch of its own, "index", rather than into master: a
+# commit on master after every push would leave the local copy behind, and
+# the next push of setups would be refused until it was pulled. SimpleInputs
+# reads the index from that branch and the .svm files from master.
+name: Setup index
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - "setups/**"
+      - "catalog.py"
+      - "library.py"
+      - "make_index.py"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: setup-index
+  cancel-in-progress: true
+
+jobs:
+  index:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install python-dotenv
+      - run: python make_index.py
+      - name: Publish the index on the "index" branch
+        env:
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mkdir out
+          cp setups_index.json out/
+          cd out
+          git init -q
+          git checkout -q -b index
+          git config user.name "github-actions[bot]"
+          git config user.email "41898341+github-actions[bot]@users.noreply.github.com"
+          git add setups_index.json
+          git commit -q -m "Setup index for ${GITHUB_SHA::7}"
+          git push -q -f "https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" index

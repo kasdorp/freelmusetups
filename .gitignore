@@ -4,3 +4,4 @@ __pycache__/
 .env
 data/
 CLAUDE.md
+setups_index.json
